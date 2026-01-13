@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- TITRE ET DESCRIPTION PRINCIPAUX -->
+    <!-- SEO & PARTAGE -->
     <title>EstheticTrust - Votre Fiche Google, en version Luxe</title>
     <meta name="description" content="Transformez votre fiche Google en aimant à clients. Automatisez vos avis 5 étoiles et sublimez vos photos pour un agenda complet.">
     
-    <!-- OPEN GRAPH -->
+    <!-- OPEN GRAPH (Facebook, WhatsApp, LinkedIn) -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://esthetictrust.com/">
     <meta property="og:title" content="EstheticTrust - Sublimez l'image de votre Salon">
@@ -27,7 +27,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -36,265 +36,348 @@
         tailwind.config = {
             theme: {
                 fontFamily: {
-                    sans: ['Lato', 'sans-serif'],
+                    sans: ['Plus Jakarta Sans', 'sans-serif'],
                     serif: ['Playfair Display', 'serif'],
                 },
                 extend: {
                     colors: {
-                        gold: {
-                            400: '#D4AF37',
-                            500: '#C5A028',
-                        },
-                        cream: '#FDFBF7'
+                        gold: { 400: '#D4AF37', 500: '#C5A028' },
+                        rose: { 50: '#FFF1F2', 100: '#FFE4E6', 500: '#F43F5E' },
+                        dark: '#0f172a'
                     },
-                    boxShadow: {
-                        'soft': '0 10px 40px -10px rgba(0,0,0,0.08)',
+                    backgroundImage: {
+                        'aurora': 'linear-gradient(120deg, #fdfbf7 0%, #fff1f2 50%, #fff 100%)',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 3s infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-slow': 'bounce 3s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
                     }
                 }
             }
         }
     </script>
     <style>
+        .glass {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
         .slider-container { position: relative; overflow: hidden; user-select: none; }
         .slider-handle {
-            position: absolute; top: 0; bottom: 0; width: 4px; background: white; cursor: ew-resize; z-index: 20;
+            position: absolute; top: 0; bottom: 0; width: 2px; background: white; cursor: ew-resize; z-index: 20;
             box-shadow: 0 0 15px rgba(0,0,0,0.3);
         }
         .slider-button {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
             width: 48px; height: 48px; background: white; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
             color: #D4AF37;
         }
-        .bad-photo-filter {
-            filter: brightness(0.85) contrast(0.9) sepia(0.2) saturate(0.8);
+        .bad-photo-filter { filter: brightness(0.8) contrast(0.85) sepia(0.2) saturate(0.8); }
+        
+        /* Custom Range Slider */
+        input[type=range] {
+            -webkit-appearance: none; 
+            background: transparent; 
         }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: #D4AF37;
+            cursor: pointer;
+            margin-top: -10px; 
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            border: 2px solid white;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: #e2e8f0;
+            border-radius: 4px;
+        }
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body class="font-sans text-slate-800 bg-cream min-h-screen w-full overflow-x-hidden">
+<body class="font-sans text-slate-800 bg-white selection:bg-rose-200 overflow-x-hidden">
 
     <!-- Top Banner -->
-    <div class="bg-black text-white text-xs font-medium py-3 text-center px-4 tracking-widest uppercase">
-        ✨ Programme Ambassadeur : 1 mois offert aux 20 premiers salons inscrits.
+    <div class="bg-dark text-white text-xs font-semibold py-3 text-center px-4 tracking-wider uppercase relative z-50">
+        <span class="inline-block w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+        Offre Lancement : -50% à vie pour les 10 prochains salons.
     </div>
 
     <!-- Navigation -->
-    <nav class="sticky top-0 w-full bg-cream/95 backdrop-blur-md z-50 border-b border-stone-200 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-24">
-                <!-- Logo -->
-                <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
-                    <div class="bg-black p-2 rounded-full">
-                        <i data-lucide="sparkles" class="text-gold-400 w-5 h-5"></i>
-                    </div>
-                    <span class="text-2xl font-serif font-bold text-slate-900 tracking-tight">
-                        Esthetic<span class="italic text-slate-500 font-normal">Trust</span>
-                    </span>
+    <nav class="fixed top-14 left-0 right-0 mx-auto max-w-5xl z-40 px-4">
+        <div class="glass rounded-full px-6 py-3 shadow-lg flex justify-between items-center transition-all duration-300">
+            <div class="flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                <div class="bg-rose-500 p-1.5 rounded-full text-white shadow-md">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i>
                 </div>
-                
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center space-x-10">
-                    <button onclick="scrollToSection('hero')" class="text-slate-500 hover:text-black font-medium text-sm uppercase tracking-wide transition">L'Enjeu</button>
-                    <button onclick="scrollToSection('photo-magic')" class="text-slate-500 hover:text-black font-medium text-sm uppercase tracking-wide transition">Image</button>
-                    <button onclick="scrollToSection('reputation')" class="text-slate-500 hover:text-black font-medium text-sm uppercase tracking-wide transition">Réputation</button>
-                    <button onclick="scrollToSection('pricing')" class="bg-black text-white px-8 py-3 rounded-full font-bold text-sm hover:bg-slate-800 transition shadow-lg transform hover:-translate-y-0.5 duration-200">
-                        Voir les tarifs
-                    </button>
-                </div>
-
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-slate-900 p-2">
-                        <i data-lucide="menu" class="w-8 h-8"></i>
-                    </button>
-                </div>
+                <span class="font-serif font-bold text-lg text-slate-900 tracking-tight">Esthetic<span class="italic text-rose-500 font-normal">Trust</span></span>
             </div>
-        </div>
+            
+            <div class="hidden md:flex items-center gap-8">
+                <button onclick="scrollToSection('workflow')" class="text-sm font-medium text-slate-600 hover:text-rose-500 transition">Comment ça marche</button>
+                <button onclick="scrollToSection('connect')" class="text-sm font-medium text-slate-600 hover:text-rose-500 transition">Installation</button>
+                <button onclick="scrollToSection('simulator')" class="text-sm font-medium text-slate-600 hover:text-rose-500 transition">Calculatrice</button>
+            </div>
 
-        <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu" class="hidden fixed inset-0 top-24 bg-cream z-40 flex flex-col p-8 space-y-8 h-screen">
-            <button onclick="scrollToSection('hero')" class="text-left font-serif text-3xl text-slate-900 border-b border-stone-200 pb-4">L'Enjeu</button>
-            <button onclick="scrollToSection('photo-magic')" class="text-left font-serif text-3xl text-slate-900 border-b border-stone-200 pb-4">Image Luxe</button>
-            <button onclick="scrollToSection('reputation')" class="text-left font-serif text-3xl text-slate-900 border-b border-stone-200 pb-4">Réputation</button>
-            <button onclick="scrollToSection('pricing')" class="bg-black text-white py-5 rounded-full font-bold text-lg w-full mt-auto shadow-xl">
-                Essayer Gratuitement
+            <button onclick="scrollToSection('pricing')" class="bg-dark text-white px-5 py-2 rounded-full text-xs font-bold hover:bg-slate-800 transition shadow-md transform hover:scale-105">
+                Essayer (7j offerts)
             </button>
         </div>
     </nav>
 
-    <!-- HERO SECTION: THE PROMISE -->
-    <section id="hero" class="relative pt-16 pb-24 lg:pt-32 lg:pb-40 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <!-- HERO SECTION -->
+    <section class="relative pt-40 pb-20 lg:pt-52 lg:pb-32 overflow-hidden bg-aurora">
+        <!-- Background Image for Depth -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?q=80&w=2000&auto=format&fit=crop" 
+                 class="w-full h-full object-cover opacity-[0.03] grayscale" alt="Background Texture">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-white/80"></div>
+        </div>
+
+        <div class="absolute top-0 left-0 w-[800px] h-[800px] bg-rose-200/40 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 animate-float"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
             <div class="grid lg:grid-cols-2 gap-16 items-center">
                 
-                <!-- Copywriting -->
+                <!-- Text Content -->
                 <div class="text-center lg:text-left">
-                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-stone-200 text-slate-600 text-[10px] font-bold uppercase tracking-widest mb-8 shadow-sm">
-                        <i data-lucide="trophy" class="w-3 h-3 text-gold-500"></i>
-                        Dominez votre zone de chalandise
+                    <!-- Authority Badge -->
+                    <div class="inline-flex items-center gap-2 bg-white/80 border border-rose-100 rounded-full px-4 py-1.5 shadow-sm mb-8 animate-fade-in-up backdrop-blur-sm">
+                        <div class="flex -space-x-2">
+                            <div class="w-6 h-6 rounded-full bg-slate-200 border-2 border-white flex items-center justify-center text-[8px] font-bold">L</div>
+                            <div class="w-6 h-6 rounded-full bg-slate-300 border-2 border-white flex items-center justify-center text-[8px] font-bold">M</div>
+                            <div class="w-6 h-6 rounded-full bg-slate-400 border-2 border-white flex items-center justify-center text-[8px] font-bold">A</div>
+                        </div>
+                        <span class="text-xs font-bold text-slate-600">Rejoint par +200 Instituts</span>
                     </div>
-                    <h1 class="text-4xl lg:text-6xl font-serif font-bold leading-[1.1] text-slate-900 mb-6">
-                        Faites de votre fiche Google <br/>
-                        <span class="italic text-gold-500 font-normal">votre meilleure commerciale.</span>
+
+                    <h1 class="text-5xl lg:text-7xl font-serif font-bold text-slate-900 mb-6 leading-tight tracking-tight">
+                        Votre talent est <span class="italic text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-orange-400">Premium</span>.<br/>
+                        Votre image doit l'être aussi.
                     </h1>
-                    <p class="text-lg text-slate-500 mb-10 leading-relaxed font-light max-w-lg mx-auto lg:mx-0">
-                        Votre savoir-faire est exceptionnel, mais votre présence en ligne ne lui rend pas justice ?
-                        <br/><br/>
-                        <strong>EstheticTrust</strong> automatise votre crédibilité : des photos lumineuses et des avis 5 étoiles en continu pour remplir votre agenda sans effort.
-                    </p>
                     
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center">
-                        <button onclick="scrollToSection('pricing')" class="bg-black text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-slate-800 transition shadow-xl flex items-center gap-3 w-full sm:w-auto justify-center">
-                            Sublimer mon salon (7j offerts)
+                    <p class="text-lg md:text-xl text-slate-500 mb-10 leading-relaxed">
+                        Transformez votre fiche Google en <strong>aimant à clients</strong>. Automatisez la récolte d'avis 5 étoiles et sublimez vos photos grâce à l'IA.
+                        <br/><span class="text-rose-500 font-medium text-sm">Sans aucun effort technique.</span>
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 mb-12">
+                        <button onclick="scrollToSection('pricing')" class="group relative px-8 py-4 bg-dark rounded-full text-white font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden w-full sm:w-auto">
+                            <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-rose-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <span class="relative flex items-center justify-center gap-2">
+                                Sublimer mon salon <i data-lucide="sparkles" class="w-4 h-4"></i>
+                            </span>
                         </button>
                     </div>
-                    <div class="mt-8 flex flex-wrap justify-center lg:justify-start gap-6 text-xs text-slate-400 font-bold uppercase tracking-wide">
-                        <span class="flex items-center gap-1"><i data-lucide="check" class="w-3 h-3"></i> Image Luxe</span>
-                        <span class="flex items-center gap-1"><i data-lucide="check" class="w-3 h-3"></i> Zéro Avis Négatif</span>
-                        <span class="flex items-center gap-1"><i data-lucide="check" class="w-3 h-3"></i> + de RDV</span>
+
+                    <!-- Integration Bar -->
+                    <div class="pt-8 border-t border-slate-200/60">
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">S'intègre parfaitement avec</p>
+                        <div class="flex flex-wrap justify-center lg:justify-start gap-6 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                            <span class="text-slate-800 font-bold text-lg flex items-center gap-1"><i data-lucide="calendar" class="w-4 h-4"></i> Planity</span>
+                            <span class="text-slate-800 font-bold text-lg flex items-center gap-1"><i data-lucide="stethoscope" class="w-4 h-4"></i> Doctolib</span>
+                            <span class="text-slate-800 font-bold text-lg flex items-center gap-1"><i data-lucide="layout-grid" class="w-4 h-4"></i> Flexy</span>
+                            <span class="text-slate-800 font-bold text-lg flex items-center gap-1"><i data-lucide="map-pin" class="w-4 h-4"></i> Google</span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Visual: The "Perfect Profile" Result -->
-                <div class="relative hidden lg:block">
-                   <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gold-400/10 rounded-full blur-[100px]"></div>
-                   
-                   <div class="relative">
-                        <!-- Notification Bubbles (Benefits) -->
-                        <div class="absolute -left-12 top-20 bg-white p-3 rounded-xl shadow-lg border border-slate-50 flex items-center gap-3 animate-[pulse_4s_infinite] z-20">
-                            <div class="bg-green-100 p-2 rounded-full text-green-600"><i data-lucide="calendar-check" class="w-4 h-4"></i></div>
-                            <div>
-                                <p class="text-xs font-bold text-slate-900">Agenda Complet</p>
-                                <p class="text-[10px] text-slate-500">3 nouveaux RDV ce matin</p>
-                            </div>
-                        </div>
-
-                        <div class="absolute -right-4 bottom-32 bg-white p-3 rounded-xl shadow-lg border border-slate-50 flex items-center gap-3 z-20">
-                            <div class="bg-gold-100 p-2 rounded-full text-gold-600"><i data-lucide="shield-check" class="w-4 h-4"></i></div>
-                            <div>
-                                <p class="text-xs font-bold text-slate-900">Réputation Blindée</p>
-                                <p class="text-[10px] text-slate-500">Note moyenne : 4.9/5</p>
-                            </div>
-                        </div>
-
-                        <!-- Main Phone Visual -->
-                        <div class="relative bg-white p-4 rounded-[2.5rem] shadow-soft border-4 border-white transform rotate-1 hover:rotate-0 transition duration-700 max-w-sm mx-auto z-10">
-                            <!-- Google Maps UI Mockup -->
-                            <div class="bg-slate-50 h-full rounded-[2rem] overflow-hidden">
-                                <div class="h-32 bg-slate-200 w-full object-cover relative">
-                                    <img src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover">
-                                    <div class="absolute bottom-2 right-2 bg-white/90 px-2 py-1 rounded text-[10px] font-bold shadow-sm">Photos IA ✨</div>
+                <!-- Visual Content (New & Strong) -->
+                <div class="relative hidden lg:block h-[600px]">
+                    <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[320px] bg-white rounded-[40px] border-8 border-white shadow-2xl z-20 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?q=80&w=600&auto=format&fit=crop" class="w-full h-64 object-cover" alt="Salon">
+                        <div class="p-6 bg-white">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <h3 class="font-serif font-bold text-xl">L'Atelier Beauté</h3>
+                                    <div class="flex text-yellow-400 text-xs mt-1 gap-0.5">
+                                        <i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                                        <span class="text-slate-400 ml-1">(4.9)</span>
+                                    </div>
                                 </div>
-                                <div class="p-5">
-                                    <h3 class="font-serif font-bold text-xl text-slate-900 mb-1">L'Atelier Beauté</h3>
-                                    <div class="flex items-center gap-1 text-gold-400 text-sm mb-4">
-                                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                                        <span class="text-slate-400 ml-1 text-xs">(142 avis)</span>
-                                    </div>
-                                    <div class="flex gap-2 mb-6">
-                                        <div class="flex-1 bg-black text-white text-center py-2 rounded-lg text-xs font-bold">Appeler</div>
-                                        <div class="flex-1 bg-slate-200 text-slate-700 text-center py-2 rounded-lg text-xs font-bold">Réserver</div>
-                                    </div>
-                                    <div class="space-y-3">
-                                        <div class="bg-white p-3 rounded-xl border border-slate-100 shadow-sm">
-                                            <div class="flex items-center gap-2 mb-1">
-                                                <div class="w-5 h-5 bg-orange-100 rounded-full flex items-center justify-center text-[10px] font-bold text-orange-600">J</div>
-                                                <span class="text-xs font-bold">Julie D.</span>
-                                                <div class="flex text-gold-400"><i data-lucide="star" class="w-2 h-2 fill-current"></i><i data-lucide="star" class="w-2 h-2 fill-current"></i><i data-lucide="star" class="w-2 h-2 fill-current"></i><i data-lucide="star" class="w-2 h-2 fill-current"></i><i data-lucide="star" class="w-2 h-2 fill-current"></i></div>
-                                            </div>
-                                            <p class="text-[10px] text-slate-500 italic">"Salon magnifique, les photos reflètent vraiment la réalité. Prestation au top !"</p>
-                                        </div>
-                                    </div>
+                                <div class="bg-green-100 text-green-700 px-2 py-1 rounded text-[10px] font-bold">Ouvert</div>
+                            </div>
+                            <div class="space-y-3 mt-4">
+                                <div class="h-2 bg-slate-100 rounded w-full"></div>
+                                <div class="h-2 bg-slate-100 rounded w-3/4"></div>
+                                <div class="flex gap-2 mt-4">
+                                    <div class="h-20 w-20 bg-slate-200 rounded-lg"></div>
+                                    <div class="h-20 w-20 bg-slate-200 rounded-lg"></div>
+                                    <div class="h-20 w-20 bg-slate-200 rounded-lg"></div>
                                 </div>
                             </div>
                         </div>
-                   </div>
+                    </div>
+                    
+                    <!-- NEW: The "Whaou" Element - Floating Growth Card -->
+                    <div class="absolute bottom-32 -right-12 glass-card p-5 rounded-2xl animate-float-delayed z-30 w-64 border-l-4 border-green-500">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <p class="text-xs text-slate-500 font-bold uppercase tracking-wider">Résultats (30j)</p>
+                                <p class="text-2xl font-bold text-slate-900">+35% de RDV</p>
+                            </div>
+                            <div class="bg-green-100 p-2 rounded-full text-green-600">
+                                <i data-lucide="trending-up" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                        <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                            <div class="bg-green-500 h-full w-3/4 rounded-full"></div>
+                        </div>
+                        <p class="text-[10px] text-green-600 font-bold mt-2 text-right">Performance Google</p>
+                    </div>
+
+                    <!-- Floating Notification -->
+                    <div class="absolute top-20 -left-8 glass-card p-3 rounded-xl flex items-center gap-3 animate-float z-30 shadow-lg">
+                        <div class="relative">
+                            <div class="bg-rose-500 p-2 rounded-full text-white"><i data-lucide="message-circle" class="w-4 h-4"></i></div>
+                            <span class="absolute -top-1 -right-1 flex h-3 w-3">
+                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                              <span class="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span>
+                            </span>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-slate-900">Nouvel Avis 5★</p>
+                            <p class="text-[10px] text-slate-500">Julie D. : "Salon magnifique..."</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Decorative Circle behind phone -->
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gold-400/10 rounded-full blur-[80px] -z-10"></div>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- PILLAR 1: PHOTO ENHANCER -->
-    <section id="photo-magic" class="py-24 bg-white">
-        <div class="max-w-6xl mx-auto px-4">
+    <!-- SECTION 1: CONNECT (Visual & Plug n Play) -->
+    <section id="connect" class="py-24 bg-white">
+        <div class="max-w-5xl mx-auto px-4">
             <div class="text-center mb-16">
-                <span class="text-gold-500 font-bold tracking-widest text-xs uppercase mb-3 block">Pilier 1 : L'Attraction Visuelle</span>
-                <h2 class="text-3xl md:text-5xl font-serif text-slate-900 mb-6">
-                    L'Apparence fait la Vente.
+                <span class="text-green-600 font-bold tracking-widest text-xs uppercase mb-3 block">Simplicité Radicale</span>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-slate-900 mb-6">
+                    Connecté à Google en 3 clics.
                 </h2>
-                <p class="text-slate-500 text-lg max-w-2xl mx-auto leading-relaxed">
-                    Sur Google, un client choisit avec ses yeux en 3 secondes. <br/>
-                    Notre IA récupère vos photos brutes et ajuste automatiquement la lumière et l'ambiance pour un rendu <strong>"Luxe & Pro"</strong> immédiat.
+                <p class="text-slate-500 max-w-2xl mx-auto">
+                    Pas besoin d'être un génie de l'informatique. Si vous savez utiliser Instagram, vous savez utiliser EstheticTrust.
                 </p>
             </div>
 
-            <!-- Before/After Slider -->
-            <div class="relative max-w-5xl mx-auto aspect-[4/3] md:aspect-[16/9] rounded-3xl overflow-hidden shadow-2xl border-8 border-white cursor-ew-resize group" id="slider-container">
-                <!-- After Image -->
-                <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=1600&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover" alt="Après traitement">
-                <div class="absolute top-6 right-6 bg-white/90 backdrop-blur px-5 py-2 rounded-full text-xs font-bold text-slate-900 shadow-md tracking-widest">APRÈS (IA)</div>
+            <!-- Visual Connection Flow -->
+            <div class="relative bg-slate-50 rounded-3xl border border-slate-100 p-8 md:p-12 overflow-hidden">
+                <!-- Connecting Line -->
+                <div class="hidden md:block absolute top-1/2 left-20 right-20 h-1 bg-slate-200 -z-10 transform -translate-y-4"></div>
 
-                <!-- Before Image -->
-                <div id="before-image-wrapper" class="absolute inset-0 w-1/2 overflow-hidden border-r-[3px] border-white">
-                    <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=1600&auto=format&fit=crop" 
-                         class="absolute inset-0 w-full h-full object-cover bad-photo-filter" 
-                         style="width: 200%; max-width: none;" 
-                         alt="Avant traitement">
-                    <div class="absolute top-6 left-6 bg-black/60 backdrop-blur px-5 py-2 rounded-full text-xs font-bold text-white shadow-md tracking-widest">AVANT</div>
-                </div>
-
-                <!-- Handle -->
-                <div id="slider-handle" class="slider-handle absolute top-0 bottom-0 left-1/2">
-                    <div class="slider-button shadow-xl">
-                        <i data-lucide="arrow-left-right" class="w-5 h-5"></i>
+                <div class="grid md:grid-cols-3 gap-12 relative z-10">
+                    
+                    <!-- Step 1 -->
+                    <div class="flex flex-col items-center text-center group">
+                        <div class="w-20 h-20 bg-white rounded-2xl shadow-lg border border-slate-100 flex items-center justify-center mb-6 group-hover:scale-110 transition duration-300">
+                            <i data-lucide="user-plus" class="w-8 h-8 text-slate-700"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-lg mb-2">1. Inscription</h3>
+                        <p class="text-sm text-slate-500">Créez votre compte salon en 30 secondes.</p>
                     </div>
+
+                    <!-- Step 2 -->
+                    <div class="flex flex-col items-center text-center group">
+                        <div class="w-20 h-20 bg-blue-600 rounded-2xl shadow-xl shadow-blue-200 flex items-center justify-center mb-6 text-white group-hover:scale-110 transition duration-300 relative">
+                            <span class="font-bold text-3xl font-serif">G</span>
+                            <div class="absolute -right-2 -top-2 bg-green-500 rounded-full p-1 border-2 border-white"><i data-lucide="check" class="w-3 h-3 text-white"></i></div>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-lg mb-2">2. Liaison Google</h3>
+                        <p class="text-sm text-slate-500">Connectez votre fiche établissement en 1 clic.</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="flex flex-col items-center text-center group">
+                        <div class="w-20 h-20 bg-rose-500 rounded-2xl shadow-xl shadow-rose-200 flex items-center justify-center mb-6 text-white group-hover:scale-110 transition duration-300">
+                            <i data-lucide="rocket" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-lg mb-2">3. C'est parti !</h3>
+                        <p class="text-sm text-slate-500">Le système tourne en pilote automatique.</p>
+                    </div>
+
                 </div>
             </div>
-            
-            <p class="text-center text-sm text-slate-400 mt-6 font-serif italic">Glissez pour voir comment nous transformons votre vitrine</p>
         </div>
     </section>
 
-    <!-- PILLAR 2: REPUTATION SHIELD -->
-    <section id="reputation" class="py-24 bg-stone-50 border-y border-stone-200">
+    <!-- SECTION 2: WORKFLOW SMS (Visual & Clear) -->
+    <section id="workflow" class="py-24 bg-rose-50/50 border-y border-rose-100">
         <div class="max-w-6xl mx-auto px-4">
-            <div class="grid lg:grid-cols-2 gap-20 items-center">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
                 
-                <div class="order-2 lg:order-1 relative">
-                    <div class="absolute inset-0 bg-rose-100 rounded-full blur-[100px] opacity-50"></div>
-                    <div class="bg-white p-10 rounded-[2.5rem] shadow-xl border border-white relative">
-                        <!-- Simulation Flow -->
-                        <div class="space-y-8">
-                            <div class="flex items-start gap-5">
-                                <div class="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center shrink-0 font-bold font-serif text-xl">1</div>
+                <div class="order-2 lg:order-1">
+                    <!-- The Visual Workflow -->
+                    <div class="bg-white p-8 rounded-[2.5rem] shadow-xl border border-white relative">
+                        <div class="absolute -left-4 top-10 bg-black text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Pilote Automatique</div>
+                        
+                        <div class="space-y-8 mt-4">
+                            <!-- Trigger -->
+                            <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                                <div class="bg-blue-100 p-2 rounded-full text-blue-600"><i data-lucide="calendar-check" class="w-5 h-5"></i></div>
                                 <div>
-                                    <p class="font-bold text-slate-900 mb-2">SMS envoyé automatiquement</p>
-                                    <div class="bg-slate-50 p-4 rounded-xl text-sm text-slate-600 border border-slate-100 italic">
-                                        "Bonjour Clara, merci pour votre visite ! Avez-vous aimé votre soin ?"
-                                    </div>
+                                    <p class="font-bold text-slate-900 text-sm">Fin du RDV</p>
+                                    <p class="text-xs text-slate-500">Détection automatique</p>
+                                </div>
+                                <div class="ml-auto"><i data-lucide="arrow-right" class="text-slate-300 w-4 h-4"></i></div>
+                                <div class="bg-rose-100 p-2 rounded-full text-rose-600"><i data-lucide="message-square" class="w-5 h-5"></i></div>
+                                <div>
+                                    <p class="font-bold text-slate-900 text-sm">Envoi SMS</p>
+                                    <p class="text-xs text-slate-500">"Merci pour votre visite..."</p>
                                 </div>
                             </div>
 
-                            <div class="flex justify-center"><i data-lucide="arrow-down" class="text-slate-300 w-6 h-6"></i></div>
-
-                            <div class="grid grid-cols-2 gap-6">
-                                <div class="bg-green-50 p-6 rounded-2xl border border-green-100 text-center transform hover:scale-105 transition duration-300">
-                                    <div class="text-green-600 font-bold mb-2">J'ai adoré 😍</div>
-                                    <p class="text-xs text-slate-500 mb-3">Redirection vers <strong>Google</strong></p>
-                                    <div class="flex justify-center text-yellow-400 gap-0.5">
-                                        <i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                            <!-- The Filter (Visual Split) -->
+                            <div class="relative">
+                                <div class="absolute left-1/2 -ml-0.5 w-0.5 h-8 bg-slate-200 -top-8"></div>
+                                <div class="text-center mb-4"><span class="bg-slate-200 text-slate-600 text-[10px] font-bold px-2 py-1 rounded-full">LE CLIENT CLIQUE</span></div>
+                                
+                                <div class="grid grid-cols-2 gap-4">
+                                    <!-- Happy Path -->
+                                    <div class="bg-green-50 p-5 rounded-2xl border border-green-100 text-center transform hover:scale-105 transition">
+                                        <div class="text-2xl mb-2">🥰</div>
+                                        <p class="text-green-700 font-bold text-sm mb-1">Satisfait</p>
+                                        <div class="h-px w-full bg-green-200 my-2"></div>
+                                        <p class="text-xs text-slate-600">Redirection directe</p>
+                                        <div class="mt-2 inline-flex items-center gap-1 bg-white px-2 py-1 rounded border border-slate-100 shadow-sm">
+                                            <span class="text-[10px] font-bold">Google</span>
+                                            <div class="flex text-yellow-400 text-[8px]"><i data-lucide="star" class="w-2 h-2 fill-current"></i><i data-lucide="star" class="w-2 h-2 fill-current"></i><i data-lucide="star" class="w-2 h-2 fill-current"></i><i data-lucide="star" class="w-2 h-2 fill-current"></i><i data-lucide="star" class="w-2 h-2 fill-current"></i></div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="bg-slate-100 p-6 rounded-2xl border border-slate-200 text-center opacity-70 grayscale">
-                                    <div class="text-slate-600 font-bold mb-2">Moyen 😕</div>
-                                    <p class="text-xs text-slate-500 mb-3">Formulaire <strong>Privé</strong></p>
-                                    <div class="text-[10px] text-red-500 font-bold uppercase tracking-wide border border-red-200 rounded px-2 py-1 inline-block">Invisible sur Google</div>
+
+                                    <!-- Unhappy Path -->
+                                    <div class="bg-slate-100 p-5 rounded-2xl border border-slate-200 text-center opacity-75 grayscale">
+                                        <div class="text-2xl mb-2">😕</div>
+                                        <p class="text-slate-700 font-bold text-sm mb-1">Déçu</p>
+                                        <div class="h-px w-full bg-slate-300 my-2"></div>
+                                        <p class="text-xs text-slate-600">Formulaire Privé</p>
+                                        <div class="mt-2 inline-block bg-slate-200 text-slate-500 text-[9px] font-bold px-2 py-1 rounded border border-slate-300">
+                                            Invisible Public
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -302,19 +385,26 @@
                 </div>
 
                 <div class="order-1 lg:order-2">
-                    <span class="text-gold-500 font-bold tracking-widest text-xs uppercase mb-3 block">Pilier 2 : La Confiance Absolue</span>
-                    <h2 class="text-4xl md:text-5xl font-serif text-slate-900 mb-8 leading-tight">
-                        Préservez votre réputation.<br/>Sécurisez votre CA.
+                    <span class="text-rose-500 font-bold tracking-widest text-xs uppercase mb-3 block">Bouclier de Réputation</span>
+                    <h2 class="text-3xl md:text-5xl font-serif text-slate-900 mb-6 leading-tight">
+                        Sécurisez votre note de 5.0/5
                     </h2>
                     <p class="text-slate-500 text-lg mb-8 leading-relaxed">
-                        Un client mécontent peut coûter très cher. Notre système agit comme un <strong>filtre de protection</strong>.
-                        <br/><br/>
-                        Les clients ravis (4-5★) boostent votre référencement Google. Les clients déçus sont gérés en privé, sans nuire à votre image publique.
+                        Une cliente de mauvaise humeur peut ruiner des mois d'efforts. Notre système intelligent <strong>intercepte les avis négatifs</strong> avant qu'ils n'arrivent sur Google.
                     </p>
-                    <ul class="space-y-5">
-                        <li class="flex items-center gap-4"><div class="bg-green-100 p-2 rounded-full text-green-700"><i data-lucide="trending-up" class="w-5 h-5"></i></div><span class="text-slate-800 font-medium">Devenez le n°1 sur Google Maps</span></li>
-                        <li class="flex items-center gap-4"><div class="bg-rose-100 p-2 rounded-full text-rose-500"><i data-lucide="shield" class="w-5 h-5"></i></div><span class="text-slate-800 font-medium">Zéro "Bad Buzz" public</span></li>
-                        <li class="flex items-center gap-4"><div class="bg-blue-100 p-2 rounded-full text-blue-600"><i data-lucide="zap" class="w-5 h-5"></i></div><span class="text-slate-800 font-medium">100% Automatisé (On connecte, on oublie)</span></li>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-4">
+                            <div class="bg-green-100 p-2 rounded-full text-green-700"><i data-lucide="check" class="w-5 h-5"></i></div>
+                            <span class="text-slate-800">Seuls les clients ravis notent sur Google.</span>
+                        </li>
+                        <li class="flex items-center gap-4">
+                            <div class="bg-rose-100 p-2 rounded-full text-rose-500"><i data-lucide="shield" class="w-5 h-5"></i></div>
+                            <span class="text-slate-800">Les critiques restent privées (email).</span>
+                        </li>
+                        <li class="flex items-center gap-4">
+                            <div class="bg-blue-100 p-2 rounded-full text-blue-600"><i data-lucide="smartphone" class="w-5 h-5"></i></div>
+                            <span class="text-slate-800">Fini la gêne de demander à la caisse.</span>
+                        </li>
                     </ul>
                 </div>
 
@@ -322,13 +412,118 @@
         </div>
     </section>
 
-    <!-- SOCIAL PROOF -->
-    <section class="py-24 bg-white">
+    <!-- SECTION 3: PHOTO SLIDER (L'effet Whaou Visuel) -->
+    <section id="photo-magic" class="py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="text-gold-500 font-bold tracking-widest text-xs uppercase mb-3 block">Magie IA</span>
+                <h2 class="text-3xl md:text-5xl font-serif text-slate-900 mb-6">
+                    Vos photos, dignes d'un magazine.
+                </h2>
+                <p class="text-slate-500 text-lg max-w-2xl mx-auto leading-relaxed">
+                    Une photo sombre fait fuir. Une photo lumineuse vend. <br/>
+                    Notre IA retouche automatiquement vos clichés pris au smartphone.
+                </p>
+            </div>
+
+            <!-- Slider Component -->
+            <div class="relative max-w-5xl mx-auto aspect-[4/3] md:aspect-[16/9] rounded-3xl overflow-hidden shadow-2xl border-8 border-white cursor-ew-resize group" id="slider-container">
+                <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=1600&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover" alt="Après">
+                <div class="absolute top-6 right-6 glass px-4 py-2 rounded-full text-xs font-bold text-slate-900 shadow-md">APRÈS (IA)</div>
+
+                <div id="before-image-wrapper" class="absolute inset-0 w-1/2 overflow-hidden border-r-[3px] border-white">
+                    <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=1600&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover bad-photo-filter" style="width: 200%; max-width: none;" alt="Avant">
+                    <div class="absolute top-6 left-6 bg-black/60 text-white px-4 py-2 rounded-full text-xs font-bold backdrop-blur-md">AVANT</div>
+                </div>
+
+                <div id="slider-handle" class="slider-handle absolute top-0 bottom-0 left-1/2">
+                    <div class="slider-button shadow-xl"><i data-lucide="arrow-left-right" class="w-5 h-5"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: CALCULATEUR DE GAIN -->
+    <section id="simulator" class="py-24 bg-white border-t border-stone-100">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="text-green-600 font-bold tracking-widest text-xs uppercase mb-3 block">Business & Rentabilité</span>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-slate-900 mb-6">
+                    Combien perdez-vous chaque mois ?
+                </h2>
+                <p class="text-slate-500 text-lg max-w-2xl mx-auto">
+                    Une fiche Google optimisée (4.8+ et belles photos) génère en moyenne <strong>+20% de réservations</strong>. Faites le calcul.
+                </p>
+            </div>
+
+            <div class="bg-slate-50 rounded-[2.5rem] p-8 md:p-12 border border-stone-200 shadow-lg relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-green-100 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 opacity-50"></div>
+                
+                <div class="grid md:grid-cols-2 gap-12 relative z-10 items-center">
+                    
+                    <div class="space-y-10">
+                        <div>
+                            <div class="flex justify-between items-end mb-4">
+                                <label class="font-bold text-slate-700">Votre Chiffre d'Affaires Mensuel</label>
+                                <div class="text-2xl font-serif font-bold text-slate-900" id="revenue-display">5 000 €</div>
+                            </div>
+                            <input type="range" min="1000" max="30000" step="500" value="5000" id="revenue-slider" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-gold-500">
+                            <div class="flex justify-between text-xs text-slate-400 mt-2 font-medium">
+                                <span>1 000€</span>
+                                <span>30 000€+</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl border border-stone-100 shadow-sm">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="bg-green-100 p-1.5 rounded-full text-green-600"><i data-lucide="trending-up" class="w-4 h-4"></i></div>
+                                <span class="text-sm font-bold text-slate-600">Hypothèse basse (+15%)</span>
+                            </div>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Basé sur les résultats moyens de nos 200 instituts partenaires après 3 mois d'utilisation.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-8 shadow-2xl border border-stone-100 text-center relative transform md:scale-110">
+                        <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-green-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-lg">Gain Estiimé</div>
+                        
+                        <p class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-4">CA Annuel Supplémentaire</p>
+                        <div class="text-5xl md:text-6xl font-serif font-bold text-slate-900 mb-2 transition-all duration-300" id="gain-annual">
+                            +9 000 €
+                        </div>
+                        <p class="text-green-600 text-sm font-bold bg-green-50 inline-block px-3 py-1 rounded-full mb-8" id="gain-monthly">
+                            +750 € / mois
+                        </p>
+
+                        <div class="border-t border-slate-100 pt-6">
+                            <div class="flex justify-between text-sm mb-2">
+                                <span class="text-slate-500">Coût EstheticTrust</span>
+                                <span class="text-slate-900 font-bold">79 € / mois</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-slate-500">Retour sur Investissement</span>
+                                <span class="text-green-600 font-bold">x10</span>
+                            </div>
+                        </div>
+                        
+                        <button onclick="scrollToSection('pricing')" class="w-full mt-8 bg-black text-white py-4 rounded-xl font-bold hover:bg-slate-800 transition shadow-lg">
+                            Récupérer ce CA
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="py-24 bg-cream border-t border-stone-100">
         <div class="max-w-6xl mx-auto px-4">
             <h2 class="text-3xl font-serif text-center mb-16 text-slate-900">Elles ne reviendraient pas en arrière</h2>
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- Testimonial 1 -->
-                <div class="bg-cream p-8 rounded-3xl border border-stone-100">
+                <div class="bg-white p-8 rounded-3xl border border-stone-100">
                     <div class="flex gap-1 text-gold-400 mb-6">★★★★★</div>
                     <p class="text-slate-600 italic mb-8 leading-relaxed">"Je suis passée de la 12ème à la 1ère place sur Google Maps en 3 mois. Mon téléphone n'arrête plus de sonner."</p>
                     <div class="flex items-center gap-4">
@@ -339,16 +534,16 @@
                 <!-- Testimonial 2 -->
                 <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-xl relative transform md:-translate-y-4">
                     <div class="flex gap-1 text-gold-400 mb-6">★★★★★</div>
-                    <p class="text-slate-600 italic mb-8 leading-relaxed">"Mes photos étaient sombres et ne donnaient pas envie. L'IA a tout changé. Mon feed Google ressemble enfin à un magazine."</p>
+                    <p class="text-slate-600 italic mb-8 leading-relaxed">"Mes photos étaient sombres. L'IA a tout changé. Mon feed Google ressemble enfin à un magazine de luxe."</p>
                     <div class="flex items-center gap-4">
                         <div class="w-12 h-12 bg-gold-200 rounded-full flex items-center justify-center text-gold-600 font-serif font-bold text-xl">É</div>
                         <div><div class="font-bold text-slate-900">Élodie K.</div><div class="text-xs text-slate-500 uppercase tracking-wide">L'Atelier Coiffure</div></div>
                     </div>
                 </div>
                 <!-- Testimonial 3 -->
-                <div class="bg-cream p-8 rounded-3xl border border-stone-100">
+                <div class="bg-white p-8 rounded-3xl border border-stone-100">
                     <div class="flex gap-1 text-gold-400 mb-6">★★★★★</div>
-                    <p class="text-slate-600 italic mb-8 leading-relaxed">"J'ai pu intercepter un avis négatif d'une cliente de mauvaise foi via le formulaire privé. Ça a sauvé ma moyenne de 5.0."</p>
+                    <p class="text-slate-600 italic mb-8 leading-relaxed">"J'ai pu intercepter un avis négatif d'une cliente de mauvaise foi via le formulaire privé. Ça a sauvé ma moyenne."</p>
                     <div class="flex items-center gap-4">
                         <div class="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center text-blue-600 font-serif font-bold text-xl">C</div>
                         <div><div class="font-bold text-slate-900">Camille R.</div><div class="text-xs text-slate-500 uppercase tracking-wide">Clinique Esthétique</div></div>
@@ -359,100 +554,75 @@
     </section>
 
     <!-- PRICING -->
-    <section id="pricing" class="py-24 bg-slate-900 text-white relative overflow-hidden">
-        <!-- Abstract shapes -->
-        <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-20 pointer-events-none">
-            <div class="absolute -top-24 -right-24 w-96 h-96 bg-rose-500 rounded-full blur-[128px]"></div>
-            <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-gold-500 rounded-full blur-[128px]"></div>
-        </div>
+    <section id="pricing" class="py-24 bg-dark text-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-rose-500/20 rounded-full blur-[128px]"></div>
+        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[128px]"></div>
 
         <div class="max-w-6xl mx-auto px-4 relative z-10">
             <div class="text-center mb-20">
-                <h2 class="text-3xl md:text-5xl font-serif mb-6">Un investissement rentable</h2>
-                <p class="text-slate-400 text-lg">Amorti avec 1 seule nouvelle cliente par mois.</p>
+                <h2 class="text-3xl md:text-5xl font-serif font-bold mb-4">Investissement Simple</h2>
+                <p class="text-slate-400">Rentabilisé avec 1 seule nouvelle cliente par mois.</p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto items-center">
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 
-                <!-- Plan Solo -->
-                <div class="bg-slate-800 p-10 rounded-[2rem] border border-slate-700 hover:border-slate-600 transition">
-                    <h3 class="text-2xl font-serif text-white mb-2">Indépendant</h3>
-                    <p class="text-sm text-slate-400 mb-8">Domicile ou petit cabinet</p>
-                    <div class="text-5xl font-light mb-8">39€<span class="text-lg text-slate-500">/mois</span></div>
-                    
-                    <ul class="space-y-5 mb-10 text-sm text-slate-300">
-                        <li class="flex items-center gap-4"><i data-lucide="check" class="w-5 h-5 text-rose-400"></i> 50 demandes d'avis / mois</li>
-                        <li class="flex items-center gap-4"><i data-lucide="check" class="w-5 h-5 text-rose-400"></i> Avis Google Direct</li>
-                        <li class="flex items-center gap-4 opacity-50"><i data-lucide="x" class="w-5 h-5 text-slate-500"></i> Pas de retouche photo</li>
+                <!-- Starter -->
+                <div class="bg-white/5 border border-white/10 p-8 rounded-3xl hover:bg-white/10 transition">
+                    <h3 class="text-xl font-serif mb-2">Indépendant</h3>
+                    <p class="text-sm text-slate-400 mb-6">Domicile / Freelance</p>
+                    <div class="text-4xl font-bold mb-6">39€<span class="text-base font-normal text-slate-500">/mois</span></div>
+                    <ul class="space-y-4 text-sm text-slate-300 mb-8">
+                        <li class="flex gap-3"><i data-lucide="check" class="text-green-400 w-5 h-5"></i> 50 demandes d'avis</li>
+                        <li class="flex gap-3"><i data-lucide="check" class="text-green-400 w-5 h-5"></i> Avis Google Direct</li>
+                        <li class="flex gap-3 opacity-50"><i data-lucide="x" class="text-slate-500 w-5 h-5"></i> Pas de retouche IA</li>
                     </ul>
-                    <button class="w-full py-4 rounded-full border border-slate-600 font-bold hover:bg-slate-700 transition">
-                        Choisir Indépendant
-                    </button>
+                    <button class="w-full py-3 rounded-full border border-white/20 hover:bg-white hover:text-black transition font-bold">Choisir</button>
                 </div>
 
-                <!-- Plan Salon (Featured) -->
-                <div class="bg-white text-slate-900 p-10 rounded-[2rem] border-4 border-gold-400 relative transform md:scale-105 shadow-2xl">
-                    <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gold-400 text-white px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg">
-                        Pack Performance
-                    </div>
-                    <h3 class="text-3xl font-serif text-slate-900 mb-2">Salon / Institut</h3>
-                    <p class="text-sm text-slate-500 mb-8">Pour dominer votre secteur</p>
-                    <div class="text-6xl font-serif mb-8 text-gold-500">79€<span class="text-lg font-sans text-slate-400 font-light">/mois</span></div>
-                    
-                    <ul class="space-y-5 mb-10 text-sm font-medium text-slate-700">
-                        <li class="flex items-center gap-4"><div class="bg-rose-100 p-1 rounded text-rose-500"><i data-lucide="zap" class="w-4 h-4"></i></div> Demandes illimitées</li>
-                        <li class="flex items-center gap-4"><div class="bg-rose-100 p-1 rounded text-rose-500"><i data-lucide="shield" class="w-4 h-4"></i></div> <strong>Filtre Anti-Mauvais Avis</strong></li>
-                        <li class="flex items-center gap-4"><div class="bg-rose-100 p-1 rounded text-rose-500"><i data-lucide="camera" class="w-4 h-4"></i></div> <strong>Retouche Photo IA</strong></li>
-                        <li class="flex items-center gap-4"><div class="bg-rose-100 p-1 rounded text-rose-500"><i data-lucide="check" class="w-4 h-4"></i></div> Support Prioritaire</li>
+                <!-- Pro -->
+                <div class="bg-white text-slate-900 p-8 rounded-3xl border-4 border-rose-500 relative transform md:scale-105 shadow-2xl">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-rose-500 text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wide">Recommandé</div>
+                    <h3 class="text-xl font-serif font-bold mb-2">Salon / Institut</h3>
+                    <p class="text-sm text-slate-500 mb-6">Pour dominer votre ville</p>
+                    <div class="text-5xl font-bold mb-6 text-rose-500">79€<span class="text-base font-normal text-slate-400">/mois</span></div>
+                    <ul class="space-y-4 text-sm font-medium mb-8">
+                        <li class="flex gap-3"><div class="bg-rose-100 p-1 rounded-full"><i data-lucide="zap" class="text-rose-500 w-3 h-3"></i></div> Demandes illimitées</li>
+                        <li class="flex gap-3"><div class="bg-rose-100 p-1 rounded-full"><i data-lucide="shield" class="text-rose-500 w-3 h-3"></i></div> <strong>Filtre Anti-Avis Négatifs</strong></li>
+                        <li class="flex gap-3"><div class="bg-rose-100 p-1 rounded-full"><i data-lucide="camera" class="text-rose-500 w-3 h-3"></i></div> <strong>Retouche Photo IA</strong></li>
                     </ul>
-                    <button class="w-full py-5 rounded-full bg-black text-white font-bold hover:bg-slate-800 transition shadow-lg shadow-slate-900/20 text-lg">
-                        Essayer Gratuitement (7j)
-                    </button>
-                    <p class="text-center text-xs text-slate-400 mt-6">Sans engagement • Annulation en 1 clic</p>
+                    <button class="w-full py-4 rounded-full bg-dark text-white hover:bg-slate-800 transition font-bold shadow-lg">Essayer Gratuitement (7j)</button>
+                    <p class="text-center text-xs text-slate-400 mt-4">Sans engagement • Annulation facile</p>
                 </div>
 
             </div>
-        </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="py-24 bg-white">
-        <div class="max-w-3xl mx-auto px-4">
-            <h2 class="text-3xl font-serif text-center mb-16 text-slate-900">Questions Fréquentes</h2>
-            <div class="space-y-6" id="faq-container"></div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-[#FAFAFA] py-16 border-t border-slate-200">
-        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
-            <div class="flex items-center gap-3">
-                <div class="bg-black p-2 rounded-full">
-                    <i data-lucide="sparkles" class="text-gold-400 w-4 h-4"></i>
-                </div>
-                <span class="font-serif font-bold text-xl text-slate-900">EstheticTrust</span>
+    <footer class="bg-white py-12 border-t border-slate-100">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <i data-lucide="sparkles" class="text-rose-500 w-5 h-5"></i>
+                <span class="font-serif font-bold text-lg">EstheticTrust</span>
             </div>
-            <p class="text-sm text-slate-500">© 2024 EstheticTrust. Fait avec ❤️ à Paris pour les pros de la beauté.</p>
-            <div class="flex gap-8 text-sm text-slate-500 font-medium">
-                <a href="#" class="hover:text-black transition">Mentions Légales</a>
-                <a href="#" class="hover:text-black transition">Contact</a>
+            <p class="text-sm text-slate-500">© 2024 EstheticTrust. Fait avec ❤️ à Paris.</p>
+            <div class="flex gap-6 text-sm text-slate-500">
+                <a href="#" class="hover:text-rose-500">Mentions Légales</a>
+                <a href="#" class="hover:text-rose-500">Contact</a>
             </div>
         </div>
     </footer>
 
     <!-- Scripts -->
     <script>
-        // Init Icons
         lucide.createIcons();
 
-        // 1. Navigation & Scroll
+        // Mobile Menu
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-
         if(mobileMenuBtn) {
             mobileMenuBtn.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
-                lucide.createIcons();
             });
         }
 
@@ -464,7 +634,7 @@
             if(mobileMenu) mobileMenu.classList.add('hidden');
         }
 
-        // 2. Before/After Slider Logic
+        // Slider Logic
         const sliderContainer = document.getElementById('slider-container');
         const beforeImageWrapper = document.getElementById('before-image-wrapper');
         const sliderHandle = document.getElementById('slider-handle');
@@ -486,53 +656,37 @@
                 if (!isDragging) return;
                 updateSlider(e.clientX);
             });
-
-            sliderContainer.addEventListener('touchstart', (e) => { isDragging = true; });
+            sliderContainer.addEventListener('touchstart', () => isDragging = true);
             window.addEventListener('touchend', () => isDragging = false);
             window.addEventListener('touchmove', (e) => {
                 if (!isDragging) return;
                 updateSlider(e.touches[0].clientX);
             });
             
+            // Init at 50%
             updateSlider(sliderContainer.getBoundingClientRect().left + (sliderContainer.getBoundingClientRect().width / 2));
         }
 
-        // 3. FAQ Logic
-        const faqData = [
-            { q: "Est-ce que ça marche avec Planity ou Doctolib ?", a: "Oui, EstheticTrust fonctionne en parallèle. Vous pouvez soit entrer le numéro manuellement (5 secondes), soit nous pouvons configurer une connexion selon votre logiciel." },
-            { q: "Est-ce que je suis engagé ?", a: "Non, jamais. C'est sans engagement. Vous restez parce que vous avez des résultats, pas parce que vous êtes bloqué par un contrat." },
-            { q: "Comment fonctionne la retouche photo ?", a: "C'est automatique. Vous uploadez votre photo (même prise avec un téléphone), notre IA ajuste la lumière, les contrastes et la chaleur pour un rendu 'Instagramable' immédiat." }
-        ];
+        // Simulator Logic
+        const revenueSlider = document.getElementById('revenue-slider');
+        const revenueDisplay = document.getElementById('revenue-display');
+        const gainAnnualDisplay = document.getElementById('gain-annual');
+        const gainMonthlyDisplay = document.getElementById('gain-monthly');
 
-        const faqContainer = document.getElementById('faq-container');
-        if(faqContainer) {
-            faqData.forEach((item, index) => {
-                const div = document.createElement('div');
-                div.className = "border-b border-stone-200 pb-4";
-                div.innerHTML = `
-                    <button class="w-full flex justify-between items-center py-4 text-left hover:text-gold-500 transition group" onclick="toggleFaq(${index})">
-                        <span class="font-serif font-bold text-lg text-slate-800">${item.q}</span>
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform duration-200" id="icon-${index}"></i>
-                    </button>
-                    <div id="answer-${index}" class="hidden text-slate-600 text-base leading-relaxed pb-4 px-2">
-                        ${item.a}
-                    </div>
-                `;
-                faqContainer.appendChild(div);
-            });
-            lucide.createIcons();
-        }
+        if(revenueSlider) {
+            const updateSimulator = () => {
+                const revenue = parseInt(revenueSlider.value);
+                const uplift = 0.15; // 15% increase
+                const monthlyGain = revenue * uplift;
+                const annualGain = monthlyGain * 12;
 
-        function toggleFaq(index) {
-            const answer = document.getElementById(`answer-${index}`);
-            const icon = document.getElementById(`icon-${index}`);
-            if (answer.classList.contains('hidden')) {
-                answer.classList.remove('hidden');
-                icon.classList.add('rotate-180');
-            } else {
-                answer.classList.add('hidden');
-                icon.classList.remove('rotate-180');
-            }
+                revenueDisplay.innerText = revenue.toLocaleString('fr-FR') + ' €';
+                gainAnnualDisplay.innerText = '+' + annualGain.toLocaleString('fr-FR') + ' €';
+                gainMonthlyDisplay.innerText = '+' + Math.floor(monthlyGain).toLocaleString('fr-FR') + ' € / mois';
+            };
+
+            revenueSlider.addEventListener('input', updateSimulator);
+            updateSimulator(); // init
         }
     </script>
 </body>
